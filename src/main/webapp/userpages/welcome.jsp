@@ -66,8 +66,10 @@
 
 <%
     String username = (String) request.getSession().getAttribute("username");
+    int userID = (int) request.getSession().getAttribute("userID");
 %>
 <H2> Hello, <%=username%> </H2>
+<H4> UserID: <%=userID%> </H4>
 
 
 

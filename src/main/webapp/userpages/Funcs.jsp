@@ -1,4 +1,6 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,20 +14,57 @@
 
 <h2>Upload Func</h2>
 <hr/>
-<form method="post" action="./wasm"
-      enctype="multipart/form-data">
+<form method="post" action="UploadNewFunc.jsp">
     <label>Func Name:</label>
     <input type="text" name="filename"/>
     <br/>
 
-    <label>Func Usage:</label>
+    <label>Func Description:</label>
     <input type="text" name="description"/>
+    <br/>
+
+    <label>Func Input:</label>
+    <input type="text" name="input"/>
+    <br/>
+
+    <label>Func Style:</label>
+    <select name="style">
+        <option>Sync</option>
+        <option>Async</option>
+    </select>
+    <br/>
+
+    <label>Func Resource:</label>
+    <p> - CPU(Core):</p>
+    <select name="CPU">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+    </select>
+    <p> - Memory(G):</p>
+    <select name="MEM">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+    </select>
+    <p> - DISK(G):</p>
+    <select name="DIKS">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+    </select>
     <br/>
 
     <label>Func Code File:</label>
     <input type="file" name="file"/>
     <br/>
-
 
     <button type="submit">Submit</button>
 </form>
@@ -40,7 +79,7 @@
                 <thead>
                 <tr>
                     <th>
-                        id
+                        ID
                     </th>
                     <th>
                         Func name
@@ -49,11 +88,75 @@
                         Func description
                     </th>
                     <th>
+                        Func Style
+                    </th>
+                    <th>
+                        CPU(Core)
+                    </th>
+                    <th>
+                        MEM(G)
+                    </th>
+                    <th>
+                        DISK(G)
+                    </th>
+                    <th>
                         Actions
                     </th>
                 </tr>
                 </thead>
                 <tbody id="list">
+
+                <%
+                    int userID = (int) request.getSession().getAttribute("userID");
+
+
+                    Connection connection = null;
+                    Statement statement = null;
+                    ResultSet rs = null;
+
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+
+                        //与数据库建立连接
+                        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/color_faas", "root", "123456");
+                        statement = connection.createStatement();
+                        //发送sql语句，执行
+                        String sql = "select * from Functions where User_ID="+userID;
+                        rs = statement.executeQuery(sql);
+
+                        int idx=0;
+                        while (rs.next()) {
+                            idx++;
+                            String style="sync";
+                            if(rs.getInt(6)==1) style="async";
+ %>
+                        <tr>
+                            <td> <%= idx %> </td>
+                            <td> <%= rs.getString(10) %> </td>
+                            <td> <%= rs.getString(5) %> </td>
+                            <td> <%= style %> </td>
+                            <td> <%= rs.getString(7) %> </td>
+                            <td> <%= rs.getString(8) %> </td>
+                            <td> <%= rs.getString(9) %> </td>
+                            <td><a>Delete</a>｜<a>Update</a></td>
+                        </tr>
+<%
+                        }
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }finally {
+                        try {
+                            if(rs != null) rs.close();
+                            if(statement != null) statement.close();
+                            if(connection != null) connection.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                %>
 
                 </tbody>
 

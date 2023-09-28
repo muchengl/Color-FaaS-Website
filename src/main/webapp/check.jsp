@@ -26,16 +26,15 @@
     connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/color_faas", "root", "123456");
     statement = connection.createStatement();
     //发送sql语句，执行
-    String sql = "select count(*) from User_Info where User_Email = '"+username+"' and User_Password = '"+password+"'  ";
+    String sql = "select * from User_Info where User_Email = '"+username+"' and User_Password = '"+password+"'  ";
     rs = statement.executeQuery(sql);
-    //处理结果
-    int count = -1;
+
     if (rs.next()) {
-      count = rs.getInt(1);
-    }
-    if (count > 0) {
+      int userID = rs.getInt(1);
+
       request.getSession().setAttribute("username",username);
-//      request.getSession().setAttribute("password",username);
+      request.getSession().setAttribute("userID",userID);
+
       request.getRequestDispatcher("Home.jsp").forward(request, response);
     }else {
       request.getRequestDispatcher("error.jsp").forward(request, response);
