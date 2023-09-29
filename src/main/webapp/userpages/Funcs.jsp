@@ -165,32 +165,6 @@
     </div>
 </div>
 
-<script>
-
-    $.get({
-        url: "/funcs",
-        dataType: 'json',
-        success: function (data) {
-            //alert(data);
-            for (i = 0; i < data.length; i++) {
-                if(data[i].func_status==1) {
-                    $("#list").append(
-                        "<tr>"
-                        + "<td>" + data[i].id + "</td>"
-                        + "<td>" + data[i].func_name + "</td>"
-                        + "<td>" + data[i].func_description + "</td>"
-                        + "<td><a>删除</a>｜<a>修改</a></td>"
-                        + "</tr>"
-                    );
-
-                }
-            }
-
-        }
-    })
-
-
-</script>
 
 
 

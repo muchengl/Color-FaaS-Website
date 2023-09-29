@@ -72,7 +72,7 @@
         Func Manager
     </div></a>
     <a class="idxUrl" data-src="./userpages/Info.jsp"><div class="idxbar" style="" >
-        Data Analysis
+        Account
     </div></a>
 
 </div>
