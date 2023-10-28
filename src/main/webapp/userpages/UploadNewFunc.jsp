@@ -30,15 +30,15 @@
         Class.forName("com.mysql.jdbc.Driver");
 
 
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/color_faas", "root", "123456");
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/color_faas", "root", "123456");
         statement = connection.createStatement();
 
         String sql = "INSERT INTO Functions (User_ID, Func_Args, Func_Path, Func_Explanation, Func_Output, Func_Resource_CPU, Func_Resource_Mem, Func_Resource_Disk, Func_Name) " +
-                "VALUES ("+userID+", "+input+",'na', "+description+", "+as+", "+CPU+", "+MEM+", "+DIKS+","+filename+");";
+                "VALUES ("+userID+", '"+input+"','na', '"+description+"', "+as+", "+CPU+", "+MEM+", "+DIKS+",'"+filename+"');";
 
         boolean rs = statement.execute(sql);
-        if (rs){
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        if (!rs){
+            request.getRequestDispatcher("Funcs.jsp").forward(request, response);
         }
 
 

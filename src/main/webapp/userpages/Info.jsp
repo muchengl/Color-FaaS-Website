@@ -68,23 +68,36 @@
 <div style="text-align: center;width: 100%">
     <div class="infobox" style="border-radius:15px;text-align: center;width: 300px;height: 200px;background-color: #b8cbb8;margin-right: 30px">
         <h2>Balance</h2>
-        <h1> <%=money%>$ </h1>
+        <h1 id="money"> <%=money%>$ </h1>
     </div>
 
-    <div class="infobox" style="border-radius:15px;text-align: center;width: 300px;height: 200px;background-color: dimgray">
+    <div class="infobox" style="border-radius:15px;text-align: center;width: 300px;height: 200px;background-color: dimgray" onclick="pay()">
         <h2>Bill</h2>
-        <h1> 300$ </h1>
+        <h1 id="bill"> Pay 30.0$ </h1>
     </div>
 
 </div>
+
+<script>
+    function pay() {
+        alert("Payment success")
+        $('#bill').text("0$");
+        $('#money').text("0$");
+        $('#list').append(
+            '<tr>'+
+                '<td> Thu Ort 28 12:43:13 CDT 2023 </td>'+
+                '<td>Payment </td>'+
+                '<td> 30  </td>'+
+            '</tr>'
+        )
+    }
+</script>
 
 <br>
 <div style="text-align: center;width: 100%">
     <a href="TopUp.jsp"><div class="infobox" style="border-radius:15px;text-align: center;width: 630px;height: 100px;background-color: #b8cbb8;margin-right: 30px">
         <h2>Top up your account</h2>
     </div></a>
-
-
 </div>
 
 <br>
@@ -96,9 +109,9 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        ID
-                    </th>
+<%--                    <th>--%>
+<%--                        ID--%>
+<%--                    </th>--%>
                     <th>
                         Date
                     </th>
@@ -131,7 +144,7 @@
                             if(rs.getInt(3)==0) type="Payment";
                 %>
                 <tr>
-                    <td> <%= idx %> </td>
+<%--                    <td> <%= idx %> </td>--%>
                     <td> <%= rs.getString(2) %> </td>
                     <td> <%= type %> </td>
                     <td> <%= rs.getString(6) %> </td>

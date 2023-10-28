@@ -139,7 +139,7 @@
                             <td> <%= rs.getString(7) %> </td>
                             <td> <%= rs.getString(8) %> </td>
                             <td> <%= rs.getString(9) %> </td>
-                            <td><a>Delete</a>｜<a>Update</a></td>
+                            <td><a>Delete</a>｜<a>Update</a> | <a href="FuncsTest.jsp">Test</a></td>
                         </tr>
 <%
                         }
